@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3 Meses Contigo ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a0f12 0%, #2c1218 100%);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #f3e8e8;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* CORAZONES FLOTANTES CON JS */
+        .hearts-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .floating-heart {
+            position: absolute;
+            bottom: -20px;
+            color: rgba(255, 75, 110, 0.7);
+            font-size: 1.2rem;
+            animation: riseUp 5s linear infinite;
+        }
+
+        @keyframes riseUp {
+            0% {
+                transform: translateY(0) scale(0.8) rotate(0deg);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1.4) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* TARJETA PRINCIPAL */
+        .card {
+            background: rgba(35, 18, 22, 0.88);
+            backdrop-filter: blur(15px);
+            padding: 35px 25px;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(255, 75, 110, 0.25);
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid rgba(255, 75, 110, 0.35);
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: #ff4b6e;
+            margin-bottom: 6px;
+            font-style: italic;
+        }
+
+        .subtitle {
+            font-size: 0.85rem;
+            color: #d1b2b8;
+            margin-bottom: 18px;
+        }
+
+        /* CONTADOR EXACTO */
+        .counter-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            background: linear-gradient(135deg, rgba(255, 75, 110, 0.15) 0%, rgba(186, 24, 79, 0.25) 100%);
+            padding: 12px 8px;
+            border-radius: 16px;
+            margin-bottom: 18px;
+            border: 1px solid rgba(255, 75, 110, 0.4);
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #ff6b8b;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .time-box label {
+            font-size: 0.6rem;
+            color: #f7a8b8;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* REPRODUCTOR DE MÚSICA */
+        .music-player {
+            background: rgba(25, 12, 16, 0.9);
+            padding: 10px 18px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            border: 1px solid rgba(255, 75, 110, 0.3);
+        }
+
+        .music-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: #f0d5da;
+        }
+
+        .music-btn {
+            background: #ff4b6e;
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1);
+            background: #ff6b8b;
+        }
+
+        /* POEMA */
+        .poem-box {
+            text-align: center;
+            background: rgba(25, 12, 16, 0.75);
+            padding: 16px;
+            border-radius: 16px;
+            margin-bottom: 18px;
+            border: 1px solid rgba(255, 75, 110, 0.2);
+            font-style: italic;
+        }
+
+        .poem-box p {
+            font-size: 0.85rem;
+            color: #f0d5da;
+            line-height: 1.4;
+            margin-bottom: 6px;
+        }
+
+        .poem-box p:last-child {
+            margin-bottom: 0;
+            color: #ff6b8b;
+            font-weight: 500;
+        }
+
+        /* MINIJUEGO DE CARTAS SORPRESA */
+        .game-section {
+            background: rgba(25, 12, 16, 0.8);
+            padding: 15px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 75, 110, 0.25);
+            margin-bottom: 15px;
+        }
+
+        .game-title {
+            font-size: 0.85rem;
+            color: #ff7597;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .love-card {
+            background: linear-gradient(135deg, #3d1720 0%, #591e2b 100%);
+            border: 1px solid rgba(255, 75, 110, 0.4);
+            padding: 12px;
+            border-radius: 14px;
+            cursor: pointer;
+            width: 22%;
+            text-align: center;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .love-card:hover {
+            transform: translateY(-3px);
+            border-color: #ff4b6e;
+        }
+
+        .love-card span {
+            font-size: 1.5rem;
+            display: block;
+        }
+
+        /* MODAL / MENSAJE DE LA CARTA */
+        #card-message {
+            display: none;
+            margin-top: 10px;
+            font-size: 0.82rem;
+            color: #ffb3c1;
+            background: rgba(255, 75, 110, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px dashed rgba(255, 75, 110, 0.4);
+            font-style: italic;
+        }
+
+        .footer-note {
+            font-size: 0.85rem;
+            color: #e892a3;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CORAZONES FLOTANTES -->
+    <div class="hearts-container" id="hearts-container"></div>
+
+    <div class="card">
+        <h1>Felices 3 Meses ❤️</h1>
+        <p class="subtitle">Cada momento a tu lado es único.</p>
+
+        <!-- CONTADOR EXACTO -->
+        <div class="counter-grid">
+            <div class="time-box">
+                <span id="days">90</span>
+                <label>Días</label>
+            </div>
+            <div class="time-box">
+                <span id="hours">22</span>
+                <label>Horas</label>
+            </div>
+            <div class="time-box">
+                <span id="minutes">00</span>
+                <label>Minutos</label>
+            </div>
+            <div class="time-box">
+                <span id="seconds">00</span>
+                <label>Segundos</label>
+            </div>
+        </div>
+
+        <!-- REPRODUCTOR DE MÚSICA LOCAL -->
+        <div class="music-player">
+            <div class="music-info">
+                <span>🎵</span>
+                <span id="music-status">Dale Play Cielito</span>
+            </div>
+            <!-- Archivo MP3 estático en la misma carpeta -->
+            <audio id="bg-music" loop>
+                <source src="cancion.mp3" type="audio/mpeg">
+            </audio>
+            <button class="music-btn" id="play-btn" onclick="toggleMusic()">▶</button>
+        </div>
+
+        <!-- POEMA -->
+        <div class="poem-box">
+            <p>Siempre le pido a la Luna que te cuide cuando no estás a mi lado.</p>
+            <p>Cuando me besas, mi corazón late, lo dejas marcado.</p>
+            <p> <3 <3 </p>
+        </div>
+
+        <!-- MINIJUEGO: CARTAS SORPRESA (SOLO EMOJIS) -->
+        <div cslass="game-section">
+            <div class="game-title">💌 </div>
+            <div class="cards-container">
+                <div class="love-card" onclick="openCard(1)">
+                    <span>🥰</span>
+                </div>
+                <div class="love-card" onclick="openCard(2)">
+                    <span>🎶</span>
+                </div>
+                <div class="love-card" onclick="openCard(3)">
+                    <span>🤪</span>
+                </div>
+                <div class="love-card" onclick="openCard(4)">
+                    <span>💻</span>
+                </div>
+            </div>
+            <div id="card-message">Toca el emoji.</div>
+        </div>
+
+        <div class="footer-note">
+            Te amo <3
+        </div>
+    </div>
+
+    <script>
+        // CONTADOR DE TIEMPO
+        const startDate = new Date(2026, 7, 12, 0, 0, 0); // <--- CAMBIA TU FECHA AQUÍ (Año, Mes-1, Día)
+
+        function updateCounter() {
+            const now = new Date();
+            const diff = now - startDate;
+
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((diff / 1000 / 60) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
+
+                document.getElementById('days').innerText = days;
+                document.getElementById('hours').innerText = hours;
+                document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+                document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+            }
+        }
+
+        setInterval(updateCounter, 1000);
+        updateCounter();
+
+        // CONTROL DE MÚSICA LOCAL
+        function toggleMusic() {
+            const music = document.getElementById('bg-music');
+            const btn = document.getElementById('play-btn');
+            const status = document.getElementById('music-status');
+
+            if (music.paused) {
+                music.play().then(() => {
+                    btn.innerText = '⏸';
+                    status.innerText = 'Sonando... 🎶';
+                }).catch(e => {
+                    alert("Asegúrate de haber subido tu archivo 'cancion.mp3' en la misma carpeta.");
+                });
+            } else {
+                music.pause();
+                btn.innerText = '▶';
+                status.innerText = 'Dale Play Cielito';
+            }
+        }
+
+        // MENSAJES PERSONALIZADOS EXACTOS
+        function openCard(number) {
+            const msgBox = document.getElementById('card-message');
+            msgBox.style.display = 'block';
+            
+            if(number === 1) {
+                msgBox.innerHTML = "🥰 <b>Tu carita:</b> Porque eres muy linda y tu sonrisa me gusta, con solo verte me alegras el día.";
+            } else if(number === 2) {
+                msgBox.innerHTML = "🎶 <b>Tu voz:</b> Me gusta mucho escucharla.";
+            } else if(number === 3) {
+                msgBox.innerHTML = "🤪 <b>Tus chistes rancios:</b> Aunque a veces sean malos, siempre me sacan una sonrisa o me hacen enojar poquitito porque te burlas de mí.";
+            } else if(number === 4) {
+                msgBox.innerHTML = "💻 <b>TI:</b> Porque soy rarito y eso no te aleja ni te asusta.";
+            }
+        }
+
+        // MOTOR DE CORAZONES FLOTANTES
+        function createHeart() {
+            const container = document.getElementById('hearts-container');
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.innerHTML = Math.random() > 0.4 ? '❤️' : '✨';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            
+            heart.style.fontSize = (Math.random() * 1 + 0.8) + 'rem';
+            
+            container.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        setInterval(createHeart, 350);
+    </script>
+</body>
+</html>
